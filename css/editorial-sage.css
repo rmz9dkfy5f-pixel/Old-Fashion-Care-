@@ -10,6 +10,7 @@
 :root {
   /* Ink / text */
   --es-ink:         #17324d;
+  --es-ink-rgb:     23, 50, 77;
   --es-ink-strong:  #102a43;
   --es-ink-soft:    #43586a;
 
@@ -546,13 +547,13 @@ em { font-style: italic; }
   pointer-events: none;
   background:
     linear-gradient(180deg,
-      rgba(23,50,77,0.14) 0%,
-      rgba(23,50,77,0.00) 20%,
-      rgba(23,50,77,0.00) 74%,
-      rgba(23,50,77,0.16) 100%),
+      rgba(var(--es-ink-rgb),0.14) 0%,
+      rgba(var(--es-ink-rgb),0.00) 20%,
+      rgba(var(--es-ink-rgb),0.00) 74%,
+      rgba(var(--es-ink-rgb),0.16) 100%),
     radial-gradient(125% 105% at 72% 42%,
-      rgba(23,50,77,0.00) 52%,
-      rgba(23,50,77,0.14) 100%);
+      rgba(var(--es-ink-rgb),0.00) 52%,
+      rgba(var(--es-ink-rgb),0.14) 100%);
 }
 /* (The cream-fog curve pseudo-element was removed — the left-edge dissolve is now
    handled cleanly by the mask on .es-hero__media above.) */
@@ -1310,16 +1311,41 @@ em { font-style: italic; }
   }
   .es-hero__media {
     order: 2;
-    margin: 0 var(--es-gutter) clamp(2rem, 6vw, 3rem);
+    margin: 0 0 clamp(2rem, 6vw, 3rem);
     min-height: 0;
-    aspect-ratio: 5 / 4;
-    border-radius: var(--es-radius-lg);
-    overflow: hidden;
-    /* Mobile is a clean rounded photo card — no left-edge dissolve. */
-    -webkit-mask-image: none;
-            mask-image: none;
+    aspect-ratio: 4 / 5;
+    border-radius: 0;
+    overflow: visible;
+    /* Same technique as desktop (photo masked, never a color overlay — see the
+       base rule above), rotated 90°: desktop anchors the transparent zone at the
+       LEFT-center edge because the seam faces the text column beside it; mobile
+       stacks the photo BELOW the text, so the seam-facing edge is the TOP. Same
+       ellipse radii as desktop, axes swapped, anchor moved from 0% 50% to 50% 0%. */
+    -webkit-mask-image: radial-gradient(130% 46% at 50% 0%,
+      rgba(0,0,0,0) 40%, rgba(0,0,0,0.12) 52%, rgba(0,0,0,0.34) 63%,
+      rgba(0,0,0,0.58) 73%, rgba(0,0,0,0.80) 84%, rgba(0,0,0,0.94) 92%, #000 100%);
+            mask-image: radial-gradient(130% 46% at 50% 0%,
+      rgba(0,0,0,0) 40%, rgba(0,0,0,0.12) 52%, rgba(0,0,0,0.34) 63%,
+      rgba(0,0,0,0.58) 73%, rgba(0,0,0,0.80) 84%, rgba(0,0,0,0.94) 92%, #000 100%);
   }
-  .es-hero__media img { position: static; aspect-ratio: 5 / 4; }
+  .es-hero__media img { position: static; aspect-ratio: 4 / 5; }
+  .es-hero__media::after {
+    /* Vignette rotated to match: desktop's flush edges are top/bottom (photo is
+       full-bleed horizontally, seam is the left edge), so its vignette darkens
+       top/bottom. Mobile's flush edges are left/right (full-bleed horizontally
+       again, but seam is now the top edge), so the vignette rotates 90deg to
+       darken left/right instead, with the off-center glow moved below-center
+       (away from the top seam) to match. */
+    background:
+      linear-gradient(90deg,
+        rgba(var(--es-ink-rgb),0.14) 0%,
+        rgba(var(--es-ink-rgb),0.00) 20%,
+        rgba(var(--es-ink-rgb),0.00) 80%,
+        rgba(var(--es-ink-rgb),0.16) 100%),
+      radial-gradient(105% 125% at 50% 72%,
+        rgba(var(--es-ink-rgb),0.00) 52%,
+        rgba(var(--es-ink-rgb),0.14) 100%);
+  }
   .es-hero__actions .es-btn { flex: 1 1 auto; }
   .es-process__inner { grid-template-columns: 1fr; }
 }
