@@ -45,8 +45,9 @@ scutil --get ComputerName 2>/dev/null || hostname
 | Machine | Detection | Snapshot destination | Notes |
 |---|---|---|---|
 | Ant's Mac Mini | `scutil --get ComputerName` → `Ant’s Mac Mini (4)` | `/Volumes/AntNVMe1TB/WorkSync/Projects/RepoBackups/Old-Fashion-Care/` | Correct volume is AntNVMe1TB, NOT DataHub_2TB (stale root) |
+| Ant's MacBook Air | `scutil --get ComputerName` → `Ant’s MacBook Air` | `/Users/ant/WorkSync/Projects/RepoBackups/Old-Fashion-Care/` | Added 2026-07-24 — found missing when a session ran from this machine; path confirmed to already hold this project's full snapshot history back to `v1.3.0` |
 
-If the current machine does not match the row above, **stop and ask the user** for the correct
+If the current machine does not match a row above, **stop and ask the user** for the correct
 destination — do not guess a path pattern.
 
 ## Deployment Contract
