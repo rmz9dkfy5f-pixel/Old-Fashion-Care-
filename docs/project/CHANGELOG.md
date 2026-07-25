@@ -4,6 +4,25 @@ All notable changes to the Old Fashion Care website will be documented here.
 
 ---
 
+## [branch `design/editorial-sage-hero-split-depth`] — 2026-07-24
+
+Mobile hero reworked to mirror desktop's image-right composition. Live at
+`old-fashion-care.sage.hero.split.depth.craftandconscious.com`.
+
+### Changed
+- Mobile (`@media (max-width: 820px)`) hero photo is now a right-anchored full-height band whose
+  left edge dissolves into cream via the same `mask-image` technique desktop uses (never a color
+  overlay), instead of a plain rounded card stacked below the text (`aa02b33`).
+- Headline and sage accent sizing tuned so no text lands over the opaque part of the photo at any
+  phone width tested.
+- (Superseded intermediate step, same day: `cb73699` rotated the mask to a top-anchored, full-bleed
+  stacked layout — replaced by the above after live review.)
+
+### Notes
+- Desktop (`>820px`) hero unchanged; verified pixel-identical before/after.
+
+---
+
 ## [tooling: AntBrainOS kit install — branch `design/editorial-sage-hero-split-depth`] — 2026-07-15
 
 Dev-tooling only. **No site files changed** — zero `.html`/`css`/`js`/`images`/`netlify.toml` edits,

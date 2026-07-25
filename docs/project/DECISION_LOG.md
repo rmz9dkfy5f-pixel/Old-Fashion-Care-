@@ -6,6 +6,45 @@ Do not use it for tiny task notes.
 
 ---
 
+## 2026-07-24 — Mobile Hero: Image-Right Overlay With "Big Headline, Photo Overlaps," Not a Narrower Clean Split
+
+### Decision
+For the mobile (≤820px) hero on `design/editorial-sage-hero-split-depth`, mirror desktop's
+image-right + left-arch-into-cream composition via an **overlay** layout (photo absolutely
+positioned as a right-anchored band, text overlaid on the cream left), and — given a real tradeoff
+between headline size and text/photo separation on a narrow phone — keep the headline at its full
+display size, letting it extend rightward over the mask's *cream-dissolved* zone (never the opaque
+photo), rather than shrinking the headline to guarantee it never crosses into the dissolve zone at
+all.
+
+### Reason
+Presented the user two concrete options with ASCII-preview mockups: "big headline, photo overlaps"
+(headline full-size, may extend over the cream-dissolved zone) vs. "smaller headline, clean split"
+(headline shrunk so every line stays fully left of the photo, no overlap at all). User chose the
+former — matching the desktop hero's own character more closely (desktop's headline is prominent
+and the photo is the dominant right-side element) rather than optimizing purely for a strict,
+smaller-scale text/photo separation on phones.
+
+### Alternatives Considered
+- Smaller headline, clean split (offered as the alternative option; not chosen — user found it
+  undersells the desktop's confident headline scale).
+- Keep the stacked/top-arch layout from earlier the same session (`cb73699`) — rejected on review;
+  the user wanted the photo beside the text, not below it, to feel consistent with desktop.
+
+### Consequences
+On the narrowest phones tested (360–390px), the sage italic accent line ("We make that possible.")
+wraps onto solid cream to stay legible (sage-on-light-dissolve reads low-contrast, unlike the dark
+ink headline/sub which read fine over the light dissolve) — this constraint was discovered via
+measurement, not assumed. Only the care recipient's face is visible in the photo crop below ~430px;
+both figures show from tablet width (768px) up. Future tuning of this hero should preserve the
+"headline may reach the dissolve zone, sub/accent/buttons stay on solid cream" rule established
+here rather than re-deriving it from scratch.
+
+### Status
+Accepted and implemented 2026-07-24.
+
+---
+
 ## 2026-07-08 — Auto-Chain CLAUDE_CODE_SESSION_END After the Repo Push/Handoff Prompt
 
 ### Decision

@@ -4,6 +4,41 @@ Use this file after each completed vertical slice.
 
 ---
 
+## 2026-07-24 — Mobile hero reworked to image-right overlay (branch `design/editorial-sage-hero-split-depth`)
+
+**Status:** Implemented, verified, pushed (`aa02b33`), deployed live. Supersedes an intermediate
+same-day pass (`cb73699`) after live review.
+
+**Slice summary:**
+Mobile had no equivalent to desktop's left-anchored `mask-image` arch (photo dissolving into the
+cream page) — it fell back to a plain rounded photo card stacked below the text. Two passes:
+
+1. `cb73699` (superseded): rotated the desktop mask 90° for a full-bleed, photo-below-text stacked
+   layout with a top-anchored arch.
+2. `aa02b33` (final): reworked into an overlay directly mirroring desktop — photo as a
+   right-anchored full-height band, the desktop's left-anchored mask restored and widened, text
+   overlaid on the cream left, gradient beginning just right of the headline. User picked the
+   "big headline, photo overlaps" tradeoff over "smaller headline, clean split" via
+   `AskUserQuestion` with ASCII previews.
+
+**What was preserved:** desktop (`>820px`) hero rules untouched both passes (verified
+pixel-unchanged at 1440px); no markup change in either pass (absolute positioning + z-index reused
+the existing content-then-media element order).
+
+**What changed:** `css/editorial-sage.css`'s `@media (max-width: 820px)` hero block only, plus one
+`:root` token (`--es-ink-rgb`, added by the first pass, retained by the second).
+
+**Verification:** local Playwright screenshots at 360/390/430/768/1440px each pass; live
+re-verification via `curl` + a production Playwright screenshot after each deploy, matching local
+renders exactly.
+
+**Known tradeoff, flagged not hidden:** on a narrow phone (≤430px) only the care recipient's face
+is visible in the photo crop — the band is physically too narrow for both figures at a readable
+size. Both figures are visible from tablet width (≥768px) up. Accepted as emotionally apt framing
+for the narrow case, not a defect.
+
+---
+
 ## 2026-07-15 — Hero variant: split + depth (branch `design/editorial-sage-hero-split-depth`)
 
 **Status:** Implemented + committed to a local branch (not pushed). Baseline branch + `main` untouched.

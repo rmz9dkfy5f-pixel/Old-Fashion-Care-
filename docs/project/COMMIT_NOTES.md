@@ -8,6 +8,72 @@ Use it to prepare commits before they are made.
 
 ## Summary
 
+fix: mobile hero reworked to image-right overlay, mirroring desktop (branch
+`design/editorial-sage-hero-split-depth`, commit `aa02b33`, supersedes `cb73699` same session)
+
+## Description
+
+- **What changed:** Rewrote the `@media (max-width: 820px)` hero rules in `css/editorial-sage.css`
+  from a stacked (photo-below-text) layout into an overlay matching the desktop composition: photo
+  on the right as an absolutely-positioned, right-anchored full-height band (58% wide), its left
+  edge dissolving into `--es-cream` via the **same left-anchored radial `mask-image` desktop
+  uses** (never a color overlay — honors the 2026-07-15 decision), widened so the dissolve spans to
+  ~screen-72%; text content overlaid (`z-index:2`) on the cream left. `object-position` on the
+  photo pushed left (`38% 28%`) so the care recipient is framed correctly in the narrower crop.
+  Headline (`clamp(2.1rem, 5.4vw, 3.4rem)`, `max-width:88%`) and the sage accent
+  (`max-width:56%`, wraps onto solid cream — it's the one low-contrast color against the light
+  dissolve) tuned against **measured** rendered text widths (a Playwright width-probe, not
+  estimates) so nothing illegible lands over the opaque photo. Buttons stack in the cream column.
+  The prior commit's mobile-only vignette override removed (inherits desktop's, correct now that
+  the photo is a right band again). `--es-ink-rgb` token (added by the prior commit) retained.
+- **Why:** desktop already places the photo on the right with an arch dissolving into cream on its
+  left; mobile previously abandoned that mask entirely for a plain rounded card stacked below the
+  text (commit `cb73699`, this same session), which the user found flat/underwhelming once live.
+  User explicitly asked mobile to mirror the desktop composition and picked the "big headline,
+  photo overlaps" tradeoff (over "smaller headline, clean split") via an `AskUserQuestion` with
+  ASCII-preview options.
+- **Validation:** local Playwright screenshots at 360/390/430/768/1440px — photo prominent with a
+  smooth arch dissolve, all text readable on cream, both figures visible at tablet+ (narrow phones
+  show only the care recipient — the band is physically too narrow for both faces at readable
+  size, accepted as emotionally apt), zero horizontal overflow at any width, desktop (1440px)
+  pixel-unchanged. After deploy: `curl` confirmed the new rule served and the prior commit's
+  top-anchor rule gone; a live Playwright screenshot of the actual production URL matched the
+  local render exactly.
+- **Risk/follow-up:** none new. Not separately tagged/snapshotted as its own milestone — folded
+  into this session's push-workflow tag (see `STATUS.md`'s Latest Push entry).
+
+---
+
+## Summary
+
+fix: mobile hero rotated to top-anchored arch, full-bleed stacked layout (branch
+`design/editorial-sage-hero-split-depth`, commit `cb73699` — superseded same session by `aa02b33`
+above; kept for history, do not treat as current)
+
+## Description
+
+- **What changed:** desktop's `.es-hero__media` mask (a left-anchored `radial-gradient` dissolving
+  the photo into cream, tall ellipse) had no mobile equivalent — the existing
+  `@media (max-width: 820px)` block killed the mask (`mask-image: none`) and boxed the photo in a
+  rounded card (`border-radius`, `overflow:hidden`) stacked below the text. Rotated the same mask
+  formula 90° (anchor `0% 50%` → `50% 0%`, ellipse radii swapped between axes) since mobile stacks
+  the photo below rather than beside the text; removed the rounded-card treatment for a full-bleed
+  photo matching desktop's flush-edges-except-the-seam look; added a mobile-only rotation of the
+  `::after` depth vignette to match; changed `aspect-ratio` `5/4` → `4/5` for room to read the new
+  top curve; added an `--es-ink-rgb` token consolidating a value hardcoded 2× (now 4×) in the
+  vignette.
+- **Why:** client-reported the mobile hero was "not attractive enough... a compromise" versus the
+  desktop arch treatment.
+- **Validation:** local Playwright at 390/430/768/1440px — genuine arch dissolve at the photo's
+  top edge, full-bleed, no card remnants, no overflow; desktop pixel-unchanged. Deployed live,
+  independently re-verified via `curl` + live Playwright.
+- **Risk/follow-up:** superseded same session (see `aa02b33` above) after the user reviewed it live
+  and preferred a desktop-mirroring layout instead of the stacked treatment.
+
+---
+
+## Summary
+
 Install AntBrainOS kit tooling — EngKit, TradeKit, handoff-repository (branch
 `design/editorial-sage-hero-split-depth`)
 

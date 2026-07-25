@@ -6,6 +6,36 @@ Current active progress belongs in `PROGRESS_NOTE.md`.
 
 ---
 
+## 2026-07-24 — Mobile hero reworked to image-right overlay (supersedes same-day top-arch pass)
+
+**Work completed:**
+- Session opened with a stale local `main` checkout (17 commits behind `origin/main`, an orphaned
+  uncommitted 2026-07-08 draft blocking `git pull`). Discarded the draft, fast-forwarded clean,
+  re-ran the session-start recovery audit — `PASS`.
+- On `design/editorial-sage-hero-split-depth`: fixed the mobile hero, which had no equivalent to
+  desktop's left-anchored `mask-image` arch (mobile fell back to a plain rounded photo card stacked
+  below the text). First pass rotated the mask to a top-anchor for a stacked layout (`cb73699`),
+  deployed, then reviewed live.
+- User asked for mobile to instead mirror the desktop composition directly: photo on the right as
+  a full-height band, arch dissolving into cream on its left, text overlaid on the cream left. Chose
+  the "big headline, photo overlaps" balance via an `AskUserQuestion` with ASCII-preview options.
+  Rewrote the mobile `@media` block into an overlay layout (`aa02b33`) — reused the desktop's exact
+  masking technique (never a color overlay, per the 2026-07-15 decision below), tuned headline/
+  accent sizing against measured rendered text widths so nothing illegible lands over the opaque
+  photo.
+
+**Files/areas changed:** `css/editorial-sage.css` only (both commits), scoped to the
+`@media (max-width: 820px)` hero block; desktop rules untouched. This session's own tracking-doc
+updates (this file, `STATUS.md`, `PROGRESS_NOTE.md`, `docs/project/COMMIT_NOTES.md`,
+`docs/project/CHANGELOG.md`, `SLICE_REVIEWS.md`, `docs/project/DECISION_LOG.md`) plus the vault
+project folder.
+
+**Validation:** local Playwright at 360/390/430/768/1440px each pass; live re-verification via
+`curl` + a production Playwright screenshot after each deploy. No horizontal overflow at any width;
+desktop confirmed pixel-unchanged both times.
+
+---
+
 ## 2026-07-15 — Two hero-variant branches built, deployed live, split-depth tagged
 
 **Work completed:**

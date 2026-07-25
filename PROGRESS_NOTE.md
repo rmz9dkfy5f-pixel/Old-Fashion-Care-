@@ -8,7 +8,33 @@ For historical notes, copy completed entries into `PROGRESS_NOTES.md`.
 
 ---
 
-## Latest — AntBrainOS Kit Tooling Install (2026-07-15)
+## Latest — Mobile Hero Reworked to Image-Right Overlay, Deployed Live (2026-07-24)
+
+Two sequential mobile-hero passes this session (see `docs/project/COMMIT_NOTES.md` /
+`docs/project/DECISION_LOG.md` for full detail). Desktop already places the photo on the right with
+an arch dissolving its left edge into cream (a `mask-image`, never a color overlay). Mobile had no
+equivalent — it fell back to a plain rounded photo card stacked below the text.
+
+1. `cb73699` (superseded same session): rotated the desktop mask 90° for a full-bleed,
+   photo-below-text stacked layout.
+2. `aa02b33` (current, live): after live review, reworked mobile into an **overlay** matching the
+   desktop composition directly — photo as a right-anchored full-height band (58% wide), the
+   desktop's left-anchored mask restored and widened so the dissolve spans to ~screen-72%, text
+   overlaid on the cream left. User chose the "big headline, photo overlaps" balance over a
+   "smaller headline, clean split" alternative. Headline/accent sizing tuned against measured
+   rendered text widths (not estimated) so no text lands over the opaque photo.
+
+**Deployed** to the live VPS preview (`old-fashion-care.sage.hero.split.depth.craftandconscious.com`)
+via a single-file `scp` swap each time; live-verified via `curl` + production Playwright screenshots.
+CSS-only (`css/editorial-sage.css`), desktop rules untouched both passes.
+
+Separately this session (not this branch's own history): the local `main` checkout used this
+session was 17 commits behind `origin/main` with an orphaned uncommitted draft blocking `git pull` —
+resolved (draft discarded per user decision, fast-forwarded clean) before any hero work began.
+
+---
+
+## Previous — AntBrainOS Kit Tooling Install (2026-07-15)
 
 Installed dev-tooling kits across all branches (user request). This branch gained **EngKit**
 (`.claude/skills/eng/`), **TradeKit** (`.claude/tradekit/`), and **handoff-repository**
@@ -24,24 +50,22 @@ See `docs/project/COMMIT_NOTES.md` for the full entry.
 Date:
 
 ```text
-2026-07-15
+2026-07-24
 ```
 
 Phase:
 
 ```text
-Phase 2 — Hero variant branch `design/editorial-sage-hero-split-depth` (cut from
-`design/editorial-sage-elder-friendly`; does NOT touch main). Committed to the branch (local).
+Phase 2 — Mobile hero rework on `design/editorial-sage-hero-split-depth` complete, pushed, and
+deployed live. No active implementation slice.
 ```
 
 Current slice:
 
 ```text
-Bring the Editorial Sage homepage hero "to life", explored as separate branches. THIS branch =
-"split + depth": the lowest-disruption variant — keep the two-column split and all copy, feather
-the cream-ellipse curve edge and add a soft ink vignette so the photo reads as a lit scene.
-CSS-only. Sibling branch `design/editorial-sage-hero-cream-immersive` is the more immersive
-(full-bleed photo + gradient) variant. Baseline `design/editorial-sage-elder-friendly` unchanged.
+None active. Mobile hero now mirrors desktop (image-right overlay, arch dissolving into cream)
+per user request; live and verified. Next step is not agent-actionable until the user picks from
+the ranked next-task list presented at this session's own closeout (see push-workflow report).
 ```
 
 Completed (this branch):
@@ -93,38 +117,44 @@ Completed (earlier redesign detail retained for reference):
 
 In progress:
 
-- [ ] None — both hero variants (cream-immersive + split-depth) are implemented on their branches.
+- [ ] None — mobile hero rework complete, pushed (`aa02b33`), and deployed live.
 
 Blocked:
 
-- [ ] Nothing blocking. Choice of variant and any merge-to-main decision remain the user's call.
+- [ ] Nothing blocking this branch. Client review of the live hero/design variants and any
+      merge-to-main decision remain the user's call (see Next Best Actions in the vault's
+      `CURRENT_CONTEXT.md`).
 
 Next action:
 
-> Let the user compare all three homepage heroes (baseline / cream-immersive / split-depth) on
-> desktop + mobile and decide which to keep. Pushing the branches to origin and any merge to `main`
-> are separate explicit decisions.
+> User-confirmed at this session's own closeout (see push-workflow Final Output / Section 6) — not
+> asserted here.
 
 Checks run:
 
 ```bash
-# Playwright (Brave engine) at 1440/1024/768/390:
-#   scrollWidth == innerWidth at every width  → 0 horizontal overflow
-#   0 console errors
-# CSS-only change, two-column split retained → no text-over-photo, no new contrast risk.
+# Local Playwright at 360/390/430/768/1440px (both this session's hero passes):
+#   scrollWidth == innerWidth at every width → 0 horizontal overflow
+#   photo prominent, smooth arch dissolve into cream, all text readable, desktop pixel-unchanged
+# Live re-verification via curl (new CSS content/Last-Modified) + a production Playwright
+#   screenshot of the actual deployed URL, matching local renders.
 # Static site — no build/test/lint scripts.
 ```
 
 Commit status:
 
 ```text
-Committed to local branch design/editorial-sage-hero-split-depth (NOT pushed). Sibling branch
-design/editorial-sage-hero-cream-immersive also committed (local). Baseline branch and main untouched.
+design/editorial-sage-hero-split-depth @ aa02b33, pushed, matches origin, hard-clean (pre-this-
+push-workflow-run). Deployed live to the VPS preview via a single-file scp swap, independently
+re-verified. main untouched by this branch's own work (separately fast-forwarded to origin/main
+this session — see Latest Push entry above).
 ```
 
 Approval status:
 
 ```text
-User approved the plan (ExitPlanMode) to create two hero-variant branches. Commit-on-branch is
-implied by "make two branches". Push to origin and merge-to-main NOT authorized (separate decisions).
+Both hero passes explicitly approved by the user before implementation (Plan Mode + ExitPlanMode
+each time); the second pass's design tradeoff ("big headline, photo overlaps" vs. "smaller
+headline, clean split") was a direct user pick via AskUserQuestion. Redeploy to the live preview
+explicitly authorized both times ("redeploy" / "approved").
 ```

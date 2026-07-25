@@ -1,6 +1,55 @@
 # Status
 
-**Last updated:** 2026-07-15
+**Last updated:** 2026-07-24
+
+---
+
+## Latest Push — Mobile Hero Reworked to Image-Right Overlay (2026-07-24, branch `design/editorial-sage-hero-split-depth`)
+
+```text
+Branch: design/editorial-sage-hero-split-depth (isolated; main untouched)
+Commits this session: cb73699 (mobile top-arch, stacked — superseded same session),
+                       aa02b33 (mobile image-right overlay — final result, live)
+Tag:    decided this push, applied in the push-workflow's final clean-tree/tag step
+        (v2.13.0__mobile-hero-image-right-overlay-arch-mask) — see Final Clean-Tree
+        Confirmation in this session's push-workflow report for the actual applied hash.
+```
+
+Two sequential mobile-hero passes this session, the second superseding the first after live
+client review:
+
+1. **First pass (`cb73699`, superseded):** mobile previously killed the desktop's left-anchored
+   `mask-image` arch entirely and fell back to a plain rounded photo card stacked below the text.
+   Rotated the desktop mask 90° (top-anchored), went full-bleed. Deployed, then reviewed live.
+2. **Final pass (`aa02b33`, current):** user asked mobile to instead mirror the desktop
+   composition directly — photo on the RIGHT as a full-height band, arch/gradient dissolving into
+   cream on its left, gradient beginning just right of the headline, text overlaid on the cream
+   left. Chose the "big headline, photo overlaps" balance over a "smaller headline, clean split"
+   alternative (user pick via `AskUserQuestion` with ASCII previews). Rewrote the
+   `@media (max-width: 820px)` block: `.es-hero__media` → `position:absolute`, right-anchored,
+   width 58%, restored the desktop left-anchored radial mask (widened so the dissolve spans to
+   ~screen-72%); `.es-hero__content` overlaid (`z-index:2`) on the cream; `object-position` pushed
+   left so the care recipient is framed in the narrower crop; headline/accent tuned (measured
+   actual rendered text widths, not estimated) to stay fully readable on cream at every phone
+   width tested; buttons stack in the cream column. Desktop (>820px) untouched.
+
+**Deployed:** VPS `74.208.9.49`, webroot `/var/www/old-fashion-care-hero-split-depth/`. Since only
+`css/editorial-sage.css` changed each time, synced via a direct `scp` swap (upload to a temp name,
+`chown 501:root`, prior file relocated to `/root/ofc-deploy-backups/` — never left in the served
+directory — then atomic `mv`) rather than a full `git archive`+`rsync` cycle.
+
+**Validation:** local Playwright screenshots at 360/390/430/768/1440px each pass (photo prominent,
+smooth arch dissolve, all text readable on cream, no horizontal overflow, desktop pixel-unchanged);
+live re-verification via fresh `curl` (new CSS content/`Last-Modified`, and confirmed the
+superseded rule's signature string is gone after the second deploy) plus a live Playwright
+screenshot of the actual production URL matching the local render. No build/test/lint scripts in
+this static repo.
+
+**Separately this session (not part of this branch's own history):** the local checkout used for
+this session's `main` work was found 17 commits behind `origin/main` with an orphaned, never-
+committed 2026-07-08 draft blocking `git pull`. Discarded the draft (user decision) and fast-
+forwarded `main` cleanly — no new commits authored on `main` this session, so no tag is owed there
+from this session. Re-ran `REPO_SESSION_START_RECOVERY_AUDIT.md` post-sync: `PASS`, no conditions.
 
 ---
 
