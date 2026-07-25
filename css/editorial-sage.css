@@ -1303,50 +1303,70 @@ em { font-style: italic; }
   .es-brand__name { font-size: 1.35rem; }
 }
 @media (max-width: 820px) {
-  .es-hero__inner { grid-template-columns: 1fr; min-height: 0; }
+  /* Mobile mirrors the DESKTOP composition instead of stacking: the photo is a
+     full-height band pinned to the RIGHT, its left edge dissolving into the cream
+     page via the same left-anchored radial mask desktop uses, with the text
+     overlaid on the cream left. The big headline may reach over the photo's
+     cream-DISSOLVED zone; sub + buttons stay in solid cream. (Replaces the earlier
+     stacked / top-arch mobile treatment.) */
+  .es-hero__inner {
+    display: block;
+    position: relative;
+    min-height: clamp(560px, 130vw, 720px);
+  }
   .es-hero__content {
-    order: 1;
-    padding: clamp(2rem, 6vw, 3rem) var(--es-gutter) 1.5rem;
+    position: relative;
+    z-index: 2;                 /* text sits above the photo layer */
+    align-self: auto;
     max-width: none;
+    padding: clamp(2.25rem, 7vw, 3.5rem) var(--es-gutter) clamp(2.5rem, 8vw, 3.75rem);
+  }
+  /* Hold every text line clear of the OPAQUE photo. The title may extend over the
+     mask's cream-dissolved zone; sub + buttons stay narrower, on solid cream.
+     Trim the title a touch on phones so "Home is where / they belong." keeps its
+     desktop 2-line break on cream instead of wrapping ragged; at tablet width the
+     clamp lands back at the desktop size. */
+  .es-hero__title {
+    max-width: 88%;
+    font-size: clamp(2.1rem, 5.4vw, 3.4rem);
+  }
+  /* The sage italic accent is the one low-contrast line, so keep it on SOLID cream:
+     a narrow max-width wraps "We make that / possible." left of the dissolve rather
+     than shrinking it (dark ink title/sub read fine over the light dissolve; sage
+     does not). */
+  .es-hero__title-accent { max-width: 56%; }
+  .es-hero__sub   { max-width: 62%; }
+  .es-hero__actions {
+    max-width: 68%;
+    flex-direction: column;     /* stack buttons in the cream column */
+    align-items: stretch;
   }
   .es-hero__media {
-    order: 2;
-    margin: 0 0 clamp(2rem, 6vw, 3rem);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 58%;                 /* right-hand band; tune vs. screenshots */
     min-height: 0;
-    aspect-ratio: 4 / 5;
+    z-index: 0;
     border-radius: 0;
     overflow: visible;
-    /* Same technique as desktop (photo masked, never a color overlay — see the
-       base rule above), rotated 90°: desktop anchors the transparent zone at the
-       LEFT-center edge because the seam faces the text column beside it; mobile
-       stacks the photo BELOW the text, so the seam-facing edge is the TOP. Same
-       ellipse radii as desktop, axes swapped, anchor moved from 0% 50% to 50% 0%. */
-    -webkit-mask-image: radial-gradient(130% 46% at 50% 0%,
-      rgba(0,0,0,0) 40%, rgba(0,0,0,0.12) 52%, rgba(0,0,0,0.34) 63%,
-      rgba(0,0,0,0.58) 73%, rgba(0,0,0,0.80) 84%, rgba(0,0,0,0.94) 92%, #000 100%);
-            mask-image: radial-gradient(130% 46% at 50% 0%,
-      rgba(0,0,0,0) 40%, rgba(0,0,0,0.12) 52%, rgba(0,0,0,0.34) 63%,
-      rgba(0,0,0,0.58) 73%, rgba(0,0,0,0.80) 84%, rgba(0,0,0,0.94) 92%, #000 100%);
+    /* Same left-anchored arch as desktop (at 0% 50%), ellipse widened so the
+       dissolve spans from the band's left edge across to ~screen-72%, leaving the
+       opaque photo as the right ~28% of the screen. Never a color overlay. */
+    -webkit-mask-image: radial-gradient(56% 132% at 0% 50%,
+      rgba(0,0,0,0) 30%, rgba(0,0,0,0.12) 46%, rgba(0,0,0,0.34) 60%,
+      rgba(0,0,0,0.58) 72%, rgba(0,0,0,0.80) 84%, rgba(0,0,0,0.94) 93%, #000 100%);
+            mask-image: radial-gradient(56% 132% at 0% 50%,
+      rgba(0,0,0,0) 30%, rgba(0,0,0,0.12) 46%, rgba(0,0,0,0.34) 60%,
+      rgba(0,0,0,0.58) 72%, rgba(0,0,0,0.80) 84%, rgba(0,0,0,0.94) 93%, #000 100%);
   }
-  .es-hero__media img { position: static; aspect-ratio: 4 / 5; }
-  .es-hero__media::after {
-    /* Vignette rotated to match: desktop's flush edges are top/bottom (photo is
-       full-bleed horizontally, seam is the left edge), so its vignette darkens
-       top/bottom. Mobile's flush edges are left/right (full-bleed horizontally
-       again, but seam is now the top edge), so the vignette rotates 90deg to
-       darken left/right instead, with the off-center glow moved below-center
-       (away from the top seam) to match. */
-    background:
-      linear-gradient(90deg,
-        rgba(var(--es-ink-rgb),0.14) 0%,
-        rgba(var(--es-ink-rgb),0.00) 20%,
-        rgba(var(--es-ink-rgb),0.00) 80%,
-        rgba(var(--es-ink-rgb),0.16) 100%),
-      radial-gradient(105% 125% at 50% 72%,
-        rgba(var(--es-ink-rgb),0.00) 52%,
-        rgba(var(--es-ink-rgb),0.14) 100%);
-  }
-  .es-hero__actions .es-btn { flex: 1 1 auto; }
+  /* img inherits desktop's position:absolute/inset:0/object-fit:cover; only push
+     the crop LEFT so both figures survive the taller, narrower band. */
+  .es-hero__media img { object-position: 38% 28%; }
+  /* ::after vignette override is intentionally NOT repeated here — the photo is a
+     right band like desktop again, so it inherits the desktop top/bottom vignette. */
   .es-process__inner { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
