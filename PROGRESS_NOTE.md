@@ -8,7 +8,22 @@ For historical notes, copy completed entries into `PROGRESS_NOTES.md`.
 
 ---
 
-## Latest — AntBrainOS Kit Tooling Install (2026-07-15)
+## Latest — Tagged + RepoBackups-Snapshotted (2026-07-27)
+
+This branch was pushed to `origin` on 2026-07-15 and deployed live to the VPS preview
+(`old-fashion-care.sage.hero.cream.immersive.craftandconscious.com`), but never tagged or
+RepoBackups-snapshotted — unlike its sibling `design/editorial-sage-hero-split-depth`. Closed that
+gap today: applied annotated tag
+`v2.14.0__cream-immersive-hero-full-bleed-gradient-scrim__commit-4182844` to the design commit
+`4182844` (not this docs commit, not the branch's later tooling-only tip `25647aa` — matches this
+repo's established "tag the code commit" rule), and created a RepoBackups snapshot at
+`/Users/ant/WorkSync/Projects/RepoBackups/Old-Fashion-Care/v2.14.0__cream-immersive-hero-full-bleed-gradient-scrim__commit-4182844`.
+Re-verified the live preview URL before writing this entry: `200 OK`, `Last-Modified` unchanged
+since the original 2026-07-15 deploy. No site code changed — tracking docs + tag + snapshot only.
+
+---
+
+## Previous — AntBrainOS Kit Tooling Install (2026-07-15)
 
 Installed dev-tooling kits across all branches (user request). This branch gained **EngKit**
 (`.claude/skills/eng/`), **TradeKit** (`.claude/tradekit/`), and **handoff-repository**
@@ -24,14 +39,15 @@ byte-identical. EcomKit/VideoKit skipped (no surface); MKTKit skipped (previousl
 Date:
 
 ```text
-2026-07-15
+2026-07-27
 ```
 
 Phase:
 
 ```text
 Phase 2 — Hero variant branch `design/editorial-sage-hero-cream-immersive` (cut from
-`design/editorial-sage-elder-friendly`; does NOT touch main). Committed to the branch (local).
+`design/editorial-sage-elder-friendly`; does NOT touch main). Pushed 2026-07-15, deployed live;
+now (this commit) tagged v2.14.0 and RepoBackups-snapshotted. No active implementation slice.
 ```
 
 Current slice:
@@ -88,7 +104,8 @@ Completed (earlier redesign detail retained for reference):
 
 In progress:
 
-- [ ] Sibling branch `design/editorial-sage-hero-split-depth` (keep-split + depth variant) — next.
+- [ ] None — both hero-variant branches (cream-immersive, split-depth) are now built, pushed,
+      deployed live, tagged, and snapshotted. Waiting on the client's design-direction decision.
 
 Blocked:
 
@@ -96,9 +113,8 @@ Blocked:
 
 Next action:
 
-> Build the second variant on `design/editorial-sage-hero-split-depth`, then let the user compare
-> all three heroes (baseline / cream-immersive / split-depth) and decide which to keep. Pushing the
-> branches to origin and any merge to `main` are separate explicit decisions.
+> Wait for the client to review the live hero/design variants and decide. If a variant is chosen,
+> decide on folding it in / merging to `main` — a separate, explicit, high-blast-radius decision.
 
 Checks run:
 
@@ -108,18 +124,22 @@ Checks run:
 #   0 console errors
 #   ink-soft (#43586a) over cream (#fbf7ee) ≈ 6.9:1  → passes WCAG AA
 # Static site — no build/test/lint scripts.
+# 2026-07-27: curl -I on the live preview URL → 200 OK, Last-Modified unchanged since 2026-07-15.
 ```
 
 Commit status:
 
 ```text
-Committed to local branch design/editorial-sage-hero-cream-immersive (NOT pushed). Baseline
+Pushed to origin/design/editorial-sage-hero-cream-immersive 2026-07-15, deployed live. Tagged
+v2.14.0__cream-immersive-hero-full-bleed-gradient-scrim__commit-4182844 and RepoBackups-snapshotted
+2026-07-27 (this commit is the docs-only record of that ceremony; the tag itself points at the
+earlier design commit 4182844, per this repo's "tag the code commit" rule). Baseline
 design/editorial-sage-elder-friendly and main both untouched.
 ```
 
 Approval status:
 
 ```text
-User approved the plan (ExitPlanMode) to create two hero-variant branches. Commit-on-branch is
-implied by "make two branches". Push to origin and merge-to-main NOT authorized (separate decisions).
+User approved the plan (ExitPlanMode) to create two hero-variant branches, then explicitly
+confirmed (2026-07-27) tagging + RepoBackups-snapshotting this branch as the next task.
 ```

@@ -8,6 +8,30 @@ Use it to prepare commits before they are made.
 
 ## Summary
 
+Tag + snapshot cream-immersive hero's full-bleed gradient scrim (branch
+`design/editorial-sage-hero-cream-immersive`)
+
+## Description
+
+- **What changed:** docs-only. Updated `STATUS.md`, `PROGRESS_NOTES.md`, `PROGRESS_NOTE.md` to
+  reflect that this branch — pushed to `origin` 2026-07-15 and deployed live — is now tagged and
+  RepoBackups-snapshotted, closing a gap versus its sibling `design/editorial-sage-hero-split-depth`
+  (which received both the same day it was pushed).
+- **Why:** the user confirmed this as the next task from this project's own continuity records
+  (repo `STATUS.md`, vault `CURRENT_CONTEXT.md`/`HANDOFF_TO_CLAUDE.md`/`AGENT_HANDOFF.md`).
+- **What was verified:** live preview URL re-checked (`old-fashion-care.sage.hero.cream.immersive.craftandconscious.com`)
+  — `200 OK`, `Last-Modified` unchanged since the original 2026-07-15 deploy. RepoBackups snapshot
+  verified against `git ls-tree -r 4182844` (297-file match, empty diff) plus `shasum -a 256`
+  spot-checks on 2 files.
+- **Remaining risk/follow-up:** none for this branch. Merge to `main` remains a separate, unmade,
+  explicit decision — same as before this task.
+- **Tag applied (separately from this commit, on the pre-existing design commit, not this docs
+  commit):** `v2.14.0__cream-immersive-hero-full-bleed-gradient-scrim__commit-4182844`.
+
+---
+
+## Summary
+
 Install AntBrainOS kit tooling — EngKit, TradeKit, handoff-repository (branch
 `design/editorial-sage-hero-cream-immersive`)
 

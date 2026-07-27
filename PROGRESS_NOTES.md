@@ -6,6 +6,43 @@ Current active progress belongs in `PROGRESS_NOTE.md`.
 
 ---
 
+## 2026-07-27 — Tag + RepoBackups Snapshot (branch `design/editorial-sage-hero-cream-immersive`)
+
+**Work completed:**
+- This branch was pushed to `origin` on 2026-07-15 and deployed live to the VPS preview, but was
+  never tagged or RepoBackups-snapshotted — unlike its sibling `design/editorial-sage-hero-split-depth`,
+  which received both the same day. Closed that gap, replicating the split-depth ceremony exactly.
+- Applied annotated tag `v2.14.0__cream-immersive-hero-full-bleed-gradient-scrim__commit-4182844`
+  directly to the historical design commit `4182844` — not to this docs commit, and not to the
+  branch's later tooling-only tip `25647aa` — per this repo's own established rule ("tag the code
+  commit, not a trailing docs-only commit"; see `docs/governance/REPOSITORY_HANDOFF_CONFIG.md`,
+  precedent `v1.5.0`/`b195aba`, `v2.4.0`/`2727395`).
+- Created a RepoBackups snapshot at
+  `/Users/ant/WorkSync/Projects/RepoBackups/Old-Fashion-Care/v2.14.0__cream-immersive-hero-full-bleed-gradient-scrim__commit-4182844`
+  (this machine, "Ant's MacBook Air" — path confirmed via `docs/governance/REPOSITORY_HANDOFF_CONFIG.md`'s
+  Snapshot Destination table).
+
+**Files changed:** `PROGRESS_NOTE.md`, `PROGRESS_NOTES.md` (this entry), `docs/project/COMMIT_NOTES.md`,
+`docs/project/STATUS.md`. No site code (`.html`/`.css`/`.js`) touched.
+
+**Validation:**
+- Live preview URL re-checked before writing this entry: `curl -I
+  https://old-fashion-care.sage.hero.cream.immersive.craftandconscious.com` → `200 OK`,
+  `Last-Modified: Wed, 15 Jul 2026 07:58:33 GMT` — unchanged since the original 2026-07-15 deploy.
+- Snapshot verified: file count matches `git ls-tree -r --name-only 4182844` (297 files), a sorted
+  file-list `diff` against the same tree was empty, and `shasum -a 256` spot-checks on `index.html`
+  and `css/editorial-sage.css` matched the tree exactly.
+- `git tag --points-at 4182844` confirms the new tag; hard-clean check passed after push.
+
+**Notes for next agent:**
+- Both hero-variant branches (`hero-cream-immersive`, `hero-split-depth`) are now equally
+  tagged/snapshotted. No new agent-actionable item from this task itself.
+- Standing open items unchanged: the client's hero/design-direction decision; any merge-to-`main`
+  decision (separate, explicit, high-blast-radius); the `oldfashioncare.com`/Jottful hosting
+  question; `migration/project-starter-v3-3` deletion decision; `main`-only BACKLOG.md follow-ups.
+
+---
+
 ## 2026-07-14 — SEO/performance hygiene pass + SEOKit install (branch `design/editorial-sage-elder-friendly`)
 
 **Work completed:**

@@ -1,6 +1,33 @@
 # Status
 
-**Last updated:** 2026-07-15
+**Last updated:** 2026-07-27
+
+---
+
+## Latest — Tagged + RepoBackups-Snapshotted (2026-07-27)
+
+This branch was pushed to `origin` on 2026-07-15 (see "Active Work" entry below) but never tagged
+or RepoBackups-snapshotted, unlike its sibling `design/editorial-sage-hero-split-depth`. Closed
+that gap today, replicating the split-depth ceremony exactly:
+
+```text
+Tag:      v2.14.0__cream-immersive-hero-full-bleed-gradient-scrim__commit-4182844
+          (applied to the design commit 4182844, not this docs commit or the branch's
+          later tooling-only tip 25647aa — matches this repo's own "tag the code commit,
+          not a trailing docs-only commit" rule; see docs/governance/REPOSITORY_HANDOFF_CONFIG.md)
+Snapshot: /Users/ant/WorkSync/Projects/RepoBackups/Old-Fashion-Care/
+          v2.14.0__cream-immersive-hero-full-bleed-gradient-scrim__commit-4182844
+```
+
+**Live re-verification performed before writing this entry:** `curl -I` on
+`https://old-fashion-care.sage.hero.cream.immersive.craftandconscious.com` returned `200 OK` with
+`Last-Modified: Wed, 15 Jul 2026 07:58:33 GMT` — unchanged since the original 2026-07-15 deploy, so
+the design below is confirmed still live and correct, not merely assumed. No site code changed in
+this update — tracking docs + tag + snapshot only.
+
+Both hero-variant branches (`hero-cream-immersive`, `hero-split-depth`) are now equally
+tagged/snapshotted. Remaining open items unchanged: the client's design-direction decision, and any
+merge-to-`main` (separate, explicit, high-blast-radius decision).
 
 ---
 
@@ -34,8 +61,9 @@ everywhere (ink-soft over cream ≈ 6.9:1, > AA), no hard seam, both faces visib
 overflow, 0 console errors** (measured via Playwright, not eyeballed). No build/test/lint scripts in
 this static repo.
 
-**Not pushed** — local branch only, pending the user's review of both variants. Merge to `main` is
-a separate explicit decision.
+**Pushed 2026-07-15, deployed live to the VPS preview** (see "Latest" entry above for the
+2026-07-27 tag/snapshot follow-up — pending the user's review of both variants; merge to `main` is
+a separate explicit decision).
 
 ---
 
