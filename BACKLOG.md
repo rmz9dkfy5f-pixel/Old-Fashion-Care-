@@ -20,7 +20,6 @@ Likely needed after the current slice.
 
 - [ ] Design review — visual polish and layout improvements across pages
 - [ ] Mobile layout review — verify all pages look great on small screens
-- [ ] Create a dedicated 180×180 `apple-touch-icon.png` (currently falls back to `favicon.svg`)
 - [ ] Add `plausible()` custom events for contact-form success/failure (`js/main.js`) — no
       business-side visibility exists today when the form fails (2026-07-19, R-009)
 - [ ] Add `Strict-Transport-Security` (HSTS) header to `netlify.toml` / VPS nginx config
@@ -108,6 +107,8 @@ Rejected or out of scope.
       from 3507–5760px native resolution to ~800×533px (landscape) / 533×800px (portrait), reducing
       page weight by 93.9% (6.96 MB → 0.428 MB). The 5 unreferenced dead files (care-07–11) remain
       uncompressed pending a separate decision. (2026-07-23)
+- [x] Create a dedicated 180×180 `apple-touch-icon.png` from the existing `favicon.svg` mark
+      (Playwright render); added the `<link rel="apple-touch-icon">` tag to all 6 pages (2026-07-28)
 
 ---
 

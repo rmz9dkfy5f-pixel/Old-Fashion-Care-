@@ -4,6 +4,25 @@ All notable changes to the Old Fashion Care website will be documented here.
 
 ---
 
+## [feat: add dedicated apple-touch-icon.png (180×180) — `main`] — 2026-07-28
+
+### Added
+- `images/apple-touch-icon.png` — 180×180 PNG rasterized from the existing `favicon.svg` lettermark
+  (rounded charcoal square, centered coral "O") via a throwaway Playwright render; a mechanical
+  conversion of the already-approved vector mark, not a new design
+- `<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">` added to all
+  6 pages' `<head>`, directly below the existing `<link rel="icon">` favicon tag
+
+### Notes
+- Closes `docs/governance/PROJECT_RISK_REGISTER.md` R-006 (now `R-C09`) and the matching
+  `BACKLOG.md` item
+- Placed under `images/` (not repo root) so it automatically inherits the existing `netlify.toml`
+  `/images/*` 1-year immutable cache rule — no `netlify.toml` change needed
+- No CSP change needed — `img-src 'self' data:;` already permits a same-origin image
+- `favicon.svg` remains the `<link rel="icon">` fallback for non-Apple contexts; unchanged
+
+---
+
 ## [fix: compress the 4 live `care-*.jpg` photos (93.9% size reduction) — `main`] — 2026-07-23
 
 ### Fixed

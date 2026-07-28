@@ -6,6 +6,34 @@ Do not use it for tiny task notes.
 
 ---
 
+## 2026-07-28 — Rasterize the Existing favicon.svg for apple-touch-icon.png Instead of Waiting on New Design Input
+
+### Decision
+Generate `images/apple-touch-icon.png` (180×180) by rasterizing the repo's own `favicon.svg` mark.
+This is not the alternative rejected on 2026-07-05 ("generate a quick 180×180 PNG from an existing
+image") — that rejection was reasoned in the context of cropping a *photo* (would need real design
+input, not a quick crop). Rasterizing the site's own already-approved vector lettermark at a fixed
+size is a deterministic, mechanical conversion, not a creative/design decision, and is appropriate
+for a coding agent to execute directly.
+
+### Reason
+`favicon.svg` (rounded charcoal square, centered coral serif "O", using this repo's exact
+`--charcoal`/`--coral` tokens) is the only icon-appropriate asset in the repo — `images/` and
+`care giver pics/` contain only photographic JPGs, none square or icon-like. No new design work is
+introduced; the output is a fixed-size render of an existing, already-approved mark.
+
+### Alternatives Considered
+- Commission or generate a new icon design — rejected, unnecessary; the SVG mark is already the
+  site's approved brand icon at every other size.
+
+### Consequences
+Closes `docs/governance/PROJECT_RISK_REGISTER.md` R-006 (now `R-C09`) and the matching `BACKLOG.md`
+item. The 2026-07-05 entry is unchanged and still correct for what it actually decided (removing the
+broken tag); this entry only clarifies that its rejected alternative doesn't extend to rasterizing
+the repo's own vector mark.
+
+---
+
 ## 2026-07-22 — Contact Form Vendor Decided: Web3Forms (Not Formspree), Gated on Client Purchase Finalization
 
 ### Decision

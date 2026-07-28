@@ -4,6 +4,49 @@ Use this file after each completed vertical slice.
 
 ---
 
+## 2026-07-28 — Add Dedicated apple-touch-icon.png (180×180)
+
+**Status:** Implemented — verified, staged for commit/push (user will request commit separately)
+
+**Slice summary:**
+Closed a long-open, well-documented gap: no dedicated apple-touch-icon existed anywhere in the repo
+(all 6 pages fell back to `favicon.svg`), tracked as R-006 in `docs/governance/PROJECT_RISK_REGISTER.md`,
+an open `BACKLOG.md` item, and a repeat finding in two SEO hygiene audits
+(`seo/audits/hygiene-2026-07-14.md`, `seo/audits/hygiene-2026-07-19.md`). Rasterized the repo's own
+`favicon.svg` lettermark to a 180×180 PNG via a throwaway Playwright render — a mechanical
+conversion, not new design work — and added the `<link rel="apple-touch-icon">` tag to all 6 pages.
+
+**Scope decision:** Rasterizing the site's own already-approved vector mark does not conflict with
+the 2026-07-05 decision to remove a broken apple-touch-icon tag rather than create a placeholder —
+that decision's rejected alternative concerned cropping a photo, not rendering the SVG mark (see the
+2026-07-28 `docs/project/DECISION_LOG.md` entry). `hero-preview.html` (noindex, nofollow, dev-only)
+intentionally left unchanged — out of scope, not one of the 6 production pages.
+
+**Files changed:** New `images/apple-touch-icon.png` (binary, 180×180). Modified: `index.html`,
+`about.html`, `services.html`, `how-it-works.html`, `questions.html`, `contact.html` — one identical
+line added to each `<head>`, directly below the existing `<link rel="icon">` tag. No CSS/JS changes.
+`netlify.toml` untouched (placement under `images/` inherits its existing cache rule automatically;
+CSP `img-src 'self' data:;` already permits a same-origin image).
+
+**Verification:** `sips -g pixelWidth -g pixelHeight` confirmed the promoted PNG is exactly 180×180.
+Visual inspection confirmed a solid rounded charcoal square with a centered coral "O", no
+transparency/background artifacts. Grep sweep confirmed exactly 6 files contain
+`rel="apple-touch-icon"`, textually identical, and `hero-preview.html` contains zero. No automated
+test suite exists for this static site; verification was manual/scripted.
+
+**Risks accepted:** None new. This closes R-006 with no other site behavior affected.
+
+**Tracking files updated:** BACKLOG.md (moved to Completed), PROJECT_RISK_REGISTER.md (R-006 closed
+as R-C09), docs/project/DECISION_LOG.md (new clarifying entry), PROGRESS_NOTE.md, PROGRESS_NOTES.md,
+docs/project/COMMIT_NOTES.md, docs/project/CHANGELOG.md, docs/project/STATUS.md, this file.
+
+**Next task decision:** No new urgent items. Remaining open items are user-owned or optional
+follow-ups tracked in `BACKLOG.md`/`PROJECT_RISK_REGISTER.md` (Web3Forms configuration, form-
+analytics events, HSTS header, `care giver pics/` folder decision, care-07–11 review, iOS Safari
+check).
+
+---
+
 ## 2026-07-23 — Image Optimization: Compress the 4 Live `care-*.jpg` Photos
 
 **Status:** Implemented — verified, staged for commit/push (user will request commit separately)

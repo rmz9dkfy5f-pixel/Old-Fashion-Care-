@@ -6,6 +6,38 @@ Current active progress belongs in `PROGRESS_NOTE.md`.
 
 ---
 
+## 2026-07-28 — Add dedicated apple-touch-icon.png (180×180)
+
+**Work completed:**
+- Rasterized the repo's own `favicon.svg` lettermark (rounded charcoal square, centered coral "O")
+  to a 180×180 PNG via a throwaway Playwright render (HTML wrapper, SVG inlined at fixed 180×180,
+  background matched to the SVG's `#2A2825` fill for seamless corners); script not committed,
+  scratch-only.
+- Verified output dimensions (`sips -g pixelWidth -g pixelHeight`, 180×180 confirmed) and visual
+  correctness before promoting into the repo at `images/apple-touch-icon.png`.
+- Added `<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">` to all
+  6 pages' `<head>`, directly below the existing favicon `<link>` — textually identical on all 6.
+- Recorded a short `docs/project/DECISION_LOG.md` entry clarifying this doesn't contradict the
+  2026-07-05 decision to remove the broken apple-touch-icon tag.
+
+**Files or areas changed:** New `images/apple-touch-icon.png` (binary). Modified: `index.html`,
+`about.html`, `services.html`, `how-it-works.html`, `questions.html`, `contact.html` (one line
+each); `BACKLOG.md`, `docs/governance/PROJECT_RISK_REGISTER.md` (R-006 closed as R-C09),
+`docs/project/DECISION_LOG.md`, `docs/project/CHANGELOG.md`, `SLICE_REVIEWS.md`,
+`docs/project/COMMIT_NOTES.md`, `PROGRESS_NOTE.md`, `docs/project/STATUS.md`.
+
+**Validation performed:** Grep sweep confirmed exactly 6 files contain the new tag, textually
+identical, and `hero-preview.html` (dev-only, noindex) contains zero. `git diff --stat` confirmed
+scope: 6 HTML files + 1 new PNG + tracking docs, nothing else; `netlify.toml` untouched. No
+automated test suite exists for this static site; verification was manual/scripted.
+
+**Notes for the next agent:** no commit, tag, snapshot, or push in this batch — staged only, per
+this repo's phase-gate convention, awaiting explicit user go-ahead. All other open items unchanged
+(Web3Forms configuration blocked on client purchase, form-analytics events, HSTS header, `care
+giver pics/` folder decision, care-07–11 review, iOS Safari check).
+
+---
+
 ## 2026-07-23 — Image optimization: compress the 4 live `care-*.jpg` photos
 
 **Work completed:**

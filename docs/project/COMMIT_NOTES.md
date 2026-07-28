@@ -8,6 +8,35 @@ Use it to prepare commits before they are made.
 
 ## Summary
 
+Add a dedicated 180×180 `apple-touch-icon.png` (rasterized from `favicon.svg`) and reference it on all 6 pages (branch `main`)
+
+## Description (pending commit)
+
+- **What changed:** new `images/apple-touch-icon.png` (180×180, binary), rasterized from the
+  existing `favicon.svg` lettermark via a throwaway Playwright render (HTML wrapper, SVG inlined at
+  fixed 180×180, background matched to the SVG's own `#2A2825` fill for seamless corners; script not
+  committed, scratch-only). Added `<link rel="apple-touch-icon" sizes="180x180"
+  href="/images/apple-touch-icon.png">` to `index.html`, `about.html`, `services.html`,
+  `how-it-works.html`, `questions.html`, `contact.html` — one identical line per page, directly below
+  the existing `<link rel="icon">` favicon tag. No other files modified; `netlify.toml` untouched.
+- **Why:** closes `docs/governance/PROJECT_RISK_REGISTER.md` R-006 and the matching `BACKLOG.md`
+  item — a long-open, repeatedly-flagged gap (both SEO hygiene audits under `seo/audits/` named it).
+  All 6 pages previously fell back to `favicon.svg` for iOS home-screen bookmarks.
+- **What was verified:** `sips -g pixelWidth -g pixelHeight` confirmed the promoted PNG is exactly
+  180×180. Visual inspection confirmed a solid rounded charcoal square with centered coral "O", no
+  transparency/background artifacts. Grep sweep confirmed exactly 6 files contain the new tag,
+  textually identical, and `hero-preview.html` (dev-only, noindex) contains zero. Confirmed
+  `netlify.toml`'s CSP (`img-src 'self' data:;`) already permits a same-origin image — no config
+  change needed. No automated test suite exists for this static site; verification was
+  manual/scripted.
+- **Remaining risk/follow-up:** none new. All other open items unchanged (Web3Forms configuration
+  blocked on client purchase, form-analytics events, HSTS header, `care giver pics/` folder decision,
+  care-07–11 review, iOS Safari check).
+
+---
+
+## Previous Commit
+
 Compress the 4 live, referenced `care-*.jpg` photos via `sips` — 93.9% size reduction (6.96 MB → 0.428 MB) with no markup changes (branch `main`)
 
 ## Description (pending commit)

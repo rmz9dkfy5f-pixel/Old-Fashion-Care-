@@ -1,10 +1,56 @@
 # Status
 
-**Last updated:** 2026-07-23
+**Last updated:** 2026-07-28
 
 ---
 
-## Latest — Image Optimization: 4 Live `care-*.jpg` Photos Compressed (2026-07-23, branch `main`, verified and staged)
+## Latest — Add Dedicated apple-touch-icon.png (180×180) (2026-07-28, branch `main`, verified and staged)
+
+**Context:** Long-open, well-documented gap — R-006 in `docs/governance/PROJECT_RISK_REGISTER.md`,
+an open `BACKLOG.md` item, and a repeat finding in two SEO hygiene audits under `seo/audits/`. All 6
+pages previously fell back to `favicon.svg` for iOS home-screen bookmarks; no apple-touch-icon
+existed anywhere in the repo.
+
+**What happened in this batch:**
+1. Rasterized the repo's own `favicon.svg` lettermark (rounded charcoal square, centered coral "O")
+   to a 180×180 PNG via a throwaway Playwright render (HTML wrapper, SVG inlined at fixed 180×180,
+   background matched to the SVG's `#2A2825` fill so transparent corner slivers render as identical
+   charcoal instead of a white halo) — a mechanical conversion of an already-approved mark, not new
+   design work. Script not committed, scratch-only.
+2. Verified output dimensions (`sips -g pixelWidth -g pixelHeight`, 180×180 confirmed) and visual
+   correctness (solid rounded charcoal square, centered coral "O", no artifacts) before promoting
+   into the repo at `images/apple-touch-icon.png`.
+3. Added `<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">` to all
+   6 pages' `<head>`, directly below the existing favicon `<link>` — textually identical on all 6.
+   `hero-preview.html` (noindex, nofollow, dev-only) intentionally left unchanged.
+4. Recorded a short `docs/project/DECISION_LOG.md` entry clarifying this doesn't contradict the
+   2026-07-05 decision to remove the broken apple-touch-icon tag (that decision's rejected
+   alternative concerned cropping a photo, not rasterizing the site's own vector mark).
+5. Updated all required tracking docs (BACKLOG.md, PROJECT_RISK_REGISTER.md R-006→R-C09,
+   DECISION_LOG.md, PROGRESS_NOTE.md, PROGRESS_NOTES.md, COMMIT_NOTES.md, CHANGELOG.md,
+   SLICE_REVIEWS.md, this file).
+
+**Placement rationale:** `images/apple-touch-icon.png`, not repo root — automatically inherits the
+existing `netlify.toml` `/images/*` 1-year immutable cache rule with zero `netlify.toml` changes;
+CSP `img-src 'self' data:;` already permits it.
+
+**Verification:** `sips` confirmed exact 180×180 dimensions. Grep sweep confirmed exactly 6 files
+contain `rel="apple-touch-icon"`, textually identical, and `hero-preview.html` contains zero.
+`git diff --stat` confirmed scope: 6 HTML files + 1 new PNG + tracking docs, nothing else;
+`netlify.toml` untouched. No automated test suite exists for this static site (documented,
+R-001) — verification was manual/scripted.
+
+**Not done, and not in this batch:** no commit, tag, snapshot, or push — staged only, per this
+repo's phase-gate convention. All other open items unchanged (Web3Forms configuration blocked on
+client purchase, form-analytics events, HSTS header, `care giver pics/` folder decision,
+care-07–11 review, iOS Safari check).
+
+**Commit status:** not yet committed — file staged and tracking docs updated; user will request
+commit as a separate step.
+
+---
+
+## Previous — Image Optimization: 4 Live `care-*.jpg` Photos Compressed (2026-07-23, branch `main`, verified and staged)
 
 **Context:** The standing user-confirmed next task from the prior two session-end closeouts (2026-07-22 
 and 2026-07-23 recovery audit). R-007 (performance risk, quantified at 2026-07-19 production-readiness 
